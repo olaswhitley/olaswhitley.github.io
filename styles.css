@@ -1,4 +1,60 @@
-img {
-  width: 100%;
-  height: auto;
+.mpBtn {
+    color: black;
+    background-color: transparent;
+    font-size: 45px;
+    border-radius: 100%;
+    margin: auto;
+    border: none;
+
+    
+}
+
+.mpBtn:active {
+    color: rgb(134, 132, 132);
+}
+
+.navbar-light .navbar-toggler {
+    color: transparent;
+    border-color: transparent;
+}
+
+
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url("assets/svg/list.svg");
+    filter: invert(50%);
+}
+
+
+.center {
+    margin: auto;
+  }
+
+#controls {
+    background-color: transparent;
+    margin-bottom: 10%;
+
+}
+
+#musicPlayer {
+    border: none;
+    margin-top: 50px;
+    border-radius: 25px;
+    background-color: rgb(192, 192, 192); /* For browsers that do not support gradients */
+    background-image: linear-gradient(to bottom right, rgb(247, 247, 247), rgb(127, 127, 127));
+}
+
+#screen {
+    margin-top: 20px;
+    padding: 20px 0;
+}
+
+#trackName {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: x-large;
+}
+
+#nowPlaying {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: small;
 }
