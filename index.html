@@ -1,198 +1,39 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-      <link href="../styles.css" rel="stylesheet">
-      <link rel="icon" href="../assets/svg/scooter.svg">
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
+    <head>
+        <title>Search</title>
+        <link rel="icon" type="image/x-icon" href="favicon.png">
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
+    <body>
+        <div>
+            <div id="header">
+                <span class="currentPage">Home</span>
+                <a href="/pages/images.html">Images</a>
+                <a href="/pages/advanced.html">Advanced</a>
+            </div>
+            
+            <div id="logo">
+                <div id="googleLogoContainer">
+                    <img src="assets/googleLogo.png" alt="Google">
+                </div>
+            </div>
 
-          function playPressed(){
-            if(currentSong.paused){
-              document.querySelector("#play").innerHTML = '<i class="bi bi-pause-fill"></i>';
-              currentSong.play();
-              currentSong.addEventListener('ended', checkQueue);
-            }
-            else{
-              currentSong.pause();
-              document.querySelector("#play").innerHTML = '<i class="bi bi-play-fill"></i>';
-              currentSong.removeEventListener('ended', checkQueue);
-            }
-          }
+            <div id="form">
+                <form action="https://www.google.com/search">
+                    <input type="text" name="q">
 
-          function nextPressed(){
-            if(!currentSong.paused){
-              currentSong.pause();
-              currentSong.removeEventListener('ended', checkQueue);
-              loadNext();
-              if(songPointer > 0){
-                currentSong.play();
-                currentSong.addEventListener('ended', checkQueue);
-              }
-              else{
-                document.querySelector("#play").innerHTML = '<i class="bi bi-play-fill"></i>';
-              }
-            }
-            else{
-              loadNext();
-            }
-          }
+                    <div>
+                        <input name="btnK" type="submit" value="Google Search">
+                        <input name="btnI" type="submit" value="I'm Feeling Lucky">
+                    </div>
 
-          function backPressed(){
-            if(currentSong.currentTime < 3){
-              if(!currentSong.paused){
-                currentSong.pause();
-                currentSong.removeEventListener('ended', checkQueue);
-                loadPrev();
-                currentSong.play();
-                currentSong.addEventListener('ended', checkQueue);
-              }
-              else{
-                loadPrev();
-              }
-            }
-            else{
-              if(!currentSong.paused){
-                currentSong.pause();
-                currentSong.currentTime = 0;
-                currentSong.play();
-              }
-              else{
-                currentSong.currentTime = 0;
-              }
-            }
-          }
+                </form>
+            </div>
 
-          function checkQueue(){
-              if (songPointer < songs.length-1){
-                loadNext();
-                currentSong.play();
-                currentSong.addEventListener('ended', checkQueue);
-              }
-              else{
-                loadNext();
-                document.querySelector("#play").innerHTML = '<i class="bi bi-play-fill"></i>';
-              }
-            };
-
-          
-          function loadNext(){
-            if (songPointer >= songs.length-1){
-              songPointer = 0;
-              document.querySelector("#trackNumber").innerHTML = songPointer + 1;
-              document.querySelector("#trackName").innerHTML = songs[songPointer].trackName;
-              currentSong = new Audio(songs[songPointer].file);
-            }
-            else{
-              songPointer += 1;
-              document.querySelector("#trackNumber").innerHTML = songPointer + 1;
-              document.querySelector("#trackName").innerHTML = songs[songPointer].trackName;
-              currentSong = new Audio(songs[songPointer].file);
-            }
-          }
-
-          function loadPrev(){
-            if (songPointer == 0){
-              songPointer = songs.length-1;
-              document.querySelector("#trackNumber").innerHTML = songPointer + 1;
-              document.querySelector("#trackName").innerHTML = songs[songPointer].trackName;
-              currentSong = new Audio(songs[songPointer].file);
-            }
-            else{
-              songPointer -= 1;
-              document.querySelector("#trackNumber").innerHTML = songPointer + 1;
-              document.querySelector("#trackName").innerHTML = songs[songPointer].trackName;
-              currentSong = new Audio(songs[songPointer].file);
-            }
-          }
-
-          let playButton = document.querySelector('#play');
-          let nextButton = document.querySelector('#next');
-          let backButton = document.querySelector('#back');
-          playButton.addEventListener('click', playPressed);
-          nextButton.addEventListener('click', nextPressed);
-          backButton.addEventListener('click', backPressed);
- 
-          /*
-          // song list for testing
-          let songs = [
-            '../assets/songs/testAudio.m4a',
-            '../assets/songs/tA2.m4a',
-            '../assets/songs/tA3.m4a'
-          ];
-          */
-
-          // actual song list
-          let doggie = {trackName : 'Doggie', file : '../assets/songs/Doggie.mp3'};
-          let kittie = {trackName : 'Kittie', file : '../assets/songs/Kittie.mp3'};
-          let lalalasso = {trackName : 'La La Lasso', file : '../assets/songs/lalalasso.m4a'};
-          let theNightAgo = {trackName : 'The Night Ago', file : '../assets/songs/theNightAgo.wav'};
-
-          let songs = [
-            doggie,
-            kittie,
-            lalalasso,
-            theNightAgo
-          ];
-
-          let songPointer = 0;
-          let currentSong = new Audio(songs[songPointer].file);
-          document.querySelector("#trackName").innerHTML = songs[songPointer].trackName;
-          document.querySelector("#trackNumber").innerHTML = songPointer + 1;
-          document.querySelector("#trackCount").innerHTML = ' of ' + songs.length;
-
-          let hamburger = document.querySelector('.navbar-light .navbar-toggler-icon');
-          hamburger.addEventListener('click', function(){
-            hamburger.backgroundImage = 'url("assets/svg/list-nested.svg")';
-            hamburger.filter = 'invert(50%)';
-          });
-
-
-        });
-      </script>
-
-
-      <title>NJW</title>
-
-
-  </head>
-
-  <body>
-
-    <div class="container-lg mt-5">
-      <div class="row justify-content-center align-items-center">
-        
-        <div class="col-md-5 text-center text-md-start">
-          <div class="display-2">Nick's Music Player</div>  
-          <div class="display-5 text-muted">some ditties I've made</div>      
         </div>
 
-        <div class="col-8 col-sm-6 col-md-4 text-center d-md-block">
-          <div id="musicPlayer">
-
-            <div id="screen">
-              <div id="nowPlaying">now playing</div>
-              <div id="trackName"></div>
-              <div id="nowPlaying"><span id="trackNumber">...</span><span id="trackCount"></span></div>
-            </div>
-      
-            <div id="controls">
-              <button class="mpBtn" id="back"><i class="bi bi-rewind-fill"></i></button>
-              <button class="mpBtn" id="play"><i class="bi bi-play-fill"></i></button>
-              <button class="mpBtn" id="next"><i class="bi bi-fast-forward-fill"></i></button>     
-            </div>
-      
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-</body>
-
+    </body>
 </html>
+
